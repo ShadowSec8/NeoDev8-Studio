@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoDev Studio - بوتات، استضافة، VPS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4a148c 0%, #311b92 50%, #1a0e47 100%);
+            color: white;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(74, 20, 140, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e0b3ff;
+            text-shadow: 0 0 10px rgba(224, 179, 255, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #e0b3ff;
+        }
+
+        /* Page sections */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #e0b3ff, #c490ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(224, 179, 255, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #6a1b9a, #4a148c);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(106, 27, 154, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(106, 27, 154, 0.6);
+        }
+
+        .services {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #e0b3ff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(156, 39, 176, 0.2);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: #e0b3ff;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #c490ff;
+        }
+
+        .service-card p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #e0b3ff;
+            margin-bottom: 1rem;
+        }
+
+        .features {
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #e0b3ff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature i {
+            font-size: 2rem;
+            color: #9c27b0;
+        }
+
+        .contact {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #e0b3ff;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: #9c27b0;
+        }
+
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-methods {
+            padding: 80px 0;
+        }
+
+        .payment-methods h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #e0b3ff;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .payment-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(106, 27, 154, 0.3);
+        }
+
+        .payment-card i {
+            font-size: 3rem;
+            color: #e0b3ff;
+            margin-bottom: 1rem;
+        }
+
+        .payment-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #c490ff;
+        }
+
+        .payment-card p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .contact-form-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #9c27b0;
+            box-shadow: 0 0 15px rgba(156, 39, 176, 0.3);
+        }
+
+        .form-group select option {
+            background: #4a4a4a;
+            color: white;
+        }
+
+        /* Services Page Styles */
+        .services-page {
+            padding: 120px 0 80px;
+        }
+
+        .services-page h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #e0b3ff;
+        }
+
+        .services-page .intro {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            opacity: 0.9;
+        }
+
+        .service-detail {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .service-detail h3 {
+            font-size: 2rem;
+            color: #c490ff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .service-detail h3 i {
+            font-size: 2.5rem;
+            color: #e0b3ff;
+        }
+
+        .service-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .feature-item i {
+            font-size: 1.2rem;
+            color: #9c27b0;
+        }
+
+        .back-button {
+            background: linear-gradient(45deg, #9c27b0, #6a1b9a);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(156, 39, 176, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .services-page h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">NeoDev Studio</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')">الرئيسية</a></li>
+                <li><a href="#" onclick="showPage('services-page')">الخدمات</a></li>
+                <li><a href="#features" onclick="showPage('home'); setTimeout(() => document.getElementById('features').scrollIntoView({behavior: 'smooth'}), 100)">المميزات</a></li>
+                <li><a href="#payment" onclick="showPage('home'); setTimeout(() => document.getElementById('payment').scrollIntoView({behavior: 'smooth'}), 100)">طرق الدفع</a></li>
+                <li><a href="mailto:neodavstudio@gmail.com">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="container">
+                <h1 class="floating-animation">NeoDev Studio</h1>
+                <p>حلولك المتكاملة للبوتات، الاستضافة، وخوادم VPS</p>
+                <a href="#" onclick="showPage('services-page')" class="cta-button">اكتشف خدماتنا</a>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2>خدماتنا</h2>
+                <div class="services-grid">
+                    <div class="service-card floating-animation">
+                        <i class="fas fa-robot"></i>
+                        <h3>بوتات مخصصة</h3>
+                        <p>بوتات ذكية مصممة خصيصاً لاحتياجاتك، متوافقة مع جميع المنصات</p>
+                        <div class="price">ابتداءً من $2</div>
+                        <a href="https://discord.gg/nX8Yq5PGP6" target="_blank" class="cta-button">اطلب الآن</a>
+                    </div>
+                    
+                    <div class="service-card floating-animation">
+                        <i class="fas fa-server"></i>
+                        <h3>استضافة ويب</h3>
+                        <p>استضافة سريعة وموثوقة مع دعم فني على مدار الساعة</p>
+                        <div class="price">ابتداءً من $5/شهر</div>
+                        <a href="https://discord.gg/nX8Yq5PGP6" target="_blank" class="cta-button">اطلب الآن</a>
+                    </div>
+                    
+                    <div class="service-card floating-animation">
+                        <i class="fas fa-cloud"></i>
+                        <h3>خوادم VPS</h3>
+                        <p>خوادم افتراضية بأداء عالي وتحكم كامل</p>
+                        <div class="price">حسب المدة المطلوبة</div>
+                        <a href="https://discord.gg/nX8Yq5PGP6" target="_blank" class="cta-button">اطلب الآن</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>لماذا تختار NeoDev Studio؟</h2>
+                <div class="features-grid">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <h4>أمان عالي</h4>
+                            <p>حماية متقدمة لبياناتك</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-headset"></i>
+                        <div>
+                            <h4>دعم فني 24/7</h4>
+                            <p>فريق دعم متخصص</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <div>
+                            <h4>أداء سريع</h4>
+                            <p>خوادم عالية الأداء</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div>
+                            <h4>أسعار تنافسية</h4>
+                            <p>أفضل قيمة مقابل المال</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-sync-alt"></i>
+                        <div>
+                            <h4>تحديثات مستمرة</h4>
+                            <p>أحدث التقنيات</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h4>فريق محترف</h4>
+                            <p>خبراء في التطوير</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="payment-methods" id="payment">
+            <div class="container">
+                <h2>طرق الدفع المتاحة</h2>
+                <div class="payment-grid">
+                    <div class="payment-card floating-animation">
+                        <i class="fab fa-paypal"></i>
+                        <h3>PayPal</h3>
+                        <p>الدفع الآمن عبر PayPal</p>
+                    </div>
+                    
+                    <div class="payment-card floating-animation">
+                        <i class="fas fa-university"></i>
+                        <h3>CIH Bank</h3>
+                        <p>تحويل بنكي مباشر</p>
+                    </div>
+                    
+                    <div class="payment-card floating-animation">
+                        <i class="fab fa-bitcoin"></i>
+                        <h3>العملات الرقمية</h3>
+                        <p>Bitcoin, USDT, وغيرها</p>
+                    </div>
+                    
+                    <div class="payment-card floating-animation">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>بطاقات الائتمان</h3>
+                        <p>Visa, MasterCard</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>تواصل معنا</h2>
+                <p>نحن هنا لمساعدتك في تحقيق أهدافك التقنية</p>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder="الاسم الكامل" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="البريد الإلكتروني" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select id="service" name="service" required>
+                                <option value="">اختر الخدمة المطلوبة</option>
+                                <option value="bot">بوت مخصص</option>
+                                <option value="hosting">استضافة ويب</option>
+                                <option value="vps">خادم VPS</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="تفاصيل المشروع أو الاستفسار" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button">أرسل الرسالة</button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fab fa-youtube"></i>
+                        <a href="https://youtube.com/@shadowsec8?si=n5m6Ru-zNiGvyzJD" target="_blank" style="color: inherit; text-decoration: none;">@shadowsec8</a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fab fa-discord"></i>
+                        <a href="https://discord.gg/nX8Yq5PGP6" target="_blank" style="color: inherit; text-decoration: none;">discord.gg/nX8Yq5PGP6</a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:neodavstudio@gmail.com" style="color: inherit; text-decoration: none;">neodavstudio@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 NeoDev Studio. جميع الحقوق محفوظة.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services-page" class="page">
+        <section class="services-page">
+            <div class="container">
+                <a href="#" onclick="showPage('home')" class="back-button">
+                    <i class="fas fa-arrow-right"></i> العودة للرئيسية
+                </a>
+                
+                <h1>خدماتنا المتخصصة</h1>
+                <p class="intro">نقدم مجموعة شاملة من الحلول التقنية المتطورة لتلبية جميع احتياجاتك</p>
+                
+                <div class="service-detail">
+                    <h3><i class="fas fa-robot"></i> بوتات مخصصة</h3>
+                    <p>نطور بوتات ذكية ومخصصة بالكامل لتلبية احتياجاتك الخاصة. سواء كنت تحتاج بوت Discord، Telegram، أو أي منصة أخرى، فريقنا المحترف جاهز لتحويل أفكارك إلى واقع.</p>
+                    
+                    <div class="service-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>تطوير مخصص 100%</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>دعم جميع المنصات</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>واجهة سهلة الاستخدام</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>تحديثات مستمرة</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>دعم فني مدى الحياة</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>أسعار تنافسية</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price">ابتداءً من $2</div>
+                    <a href="https://discord.gg/nX8Yq5PGP6" target="_blank" class="cta-button">اطلب بوتك الآن</a>
+                </div>
+
+                <div class="service-detail">
+                    <h3><i class="fas fa-server"></i> استضافة ويب</h3>
+                    <p>استضافة موثوقة وسريعة مع ضمان وقت تشغيل 99.9%. خوادم عالية الأداء مع دعم فني متخصص على مدار الساعة لضمان عمل موقعك بأفضل شكل ممكن.</p>
+                    
+                    <div class="service-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>ضمان وقت تشغيل 99.9%</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>خوادم SSD عالية السرعة</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>نسخ احتياطي يومي</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>شهادة SSL مجانية</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>لوحة تحكم سهلة</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>حماية DDoS</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price">ابتداءً من $5/شهر</div>
+                    <a href="https://discord.gg/nX8Yq5PGP6" target="_blank" class="cta-button">احصل على استضافتك</a>
+                </div>
+
+                <div class="service-detail">
+                    <h3><i class="fas fa-cloud"></i> خوادم VPS</h3>
+                    <p>خوادم افتراضية خاصة بأداء عالي وتحكم كامل. مثالية للمطورين والشركات التي تحتاج مرونة وقوة إضافية في استضافة تطبيقاتها ومشاريعها.</p>
+                    
+                    <div class="service-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>تحكم كامل Root Access</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>موارد مخصصة 100%</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>أنظمة تشغيل متعددة</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>شبكة عالية السرعة</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>إعداد فوري</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>مراقبة 24/7</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price">حسب المدة المطلوبة</div>
+                    <a href="https://discord.gg/nX8Yq5PGP6" target="_blank" class="cta-button">احجز خادمك</a>
+                </div>
+
+                <div class="service-detail">
+                    <h3><i class="fas fa-cogs"></i> خدمات إضافية</h3>
+                    <p>نقدم أيضاً مجموعة من الخدمات الإضافية لتلبية جميع احتياجاتك التقنية.</p>
+                    
+                    <div class="service-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>تطوير مواقع ويب</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>تصميم واجهات المستخدم</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>استشارات تقنية</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>صيانة وتطوير</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>تدريب تقني</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>حلول مخصصة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price">أسعار مخصصة</div>
+                    <a href="https://discord.gg/nX8Yq5PGP6" target="_blank" class="cta-button">تواصل معنا</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value;
+            
+            // Create email body
+            const emailBody = `الاسم: ${name}%0D%0Aالبريد الإلكتروني: ${email}%0D%0Aالخدمة المطلوبة: ${service}%0D%0Aالرسالة: ${message}`;
+            
+            // Open email client
+            window.open(`mailto:neodavstudio@gmail.com?subject=طلب خدمة جديد من ${name}&body=${emailBody}`, '_blank');
+            
+            // Reset form
+            this.reset();
+            
+            // Show success message
+            alert('تم إرسال رسالتك بنجاح! سيتم التواصل معك قريباً.');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && !href.includes('onclick')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add click animation to buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Create ripple effect
+                let ripple = document.createElement('span');
+                let rect = this.getBoundingClientRect();
+                let size = Math.max(rect.width, rect.height);
+                let x = e.clientX - rect.left - size / 2;
+                let y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(74, 20, 140, 0.95)';
+            } else {
+                header.style.background = 'rgba(74, 20, 140, 0.3)';
+            }
+        });
+    </script>
+</body>
+</html>
